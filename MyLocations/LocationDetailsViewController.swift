@@ -39,7 +39,9 @@ class LocationDetailsViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    let hudView = HudView.hud(inView: navigationController!.view,
+                              animated: true)
+        hudView.text = "Tagged"
     }
     @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue){
         let controller = segue.source as! CategoryPickerViewController
@@ -64,6 +66,11 @@ class LocationDetailsViewController: UITableViewController {
         }
         
         dateLabel.text = format(date: Date())
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self,
+                                                       action: #selector(hideKeyboard))
+        gestureRecognizer.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(gestureRecognizer)
     }
     
     // MARK: - Table View Delegate Methods
@@ -99,6 +106,14 @@ class LocationDetailsViewController: UITableViewController {
         }
     }
     
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PickCategory" {
+            let controller = segue.destination as! CategoryPickerViewController
+            controller.selectedCategoryName = categoryName
+        }
+    }
+    
     // MARK: - Helper Methods
     func string(from placemark: CLPlacemark) -> String {
         var text = ""
@@ -131,12 +146,15 @@ class LocationDetailsViewController: UITableViewController {
         return dateFormatter.string(from: date)
     }
     
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "PickCategory" {
-            let controller = segue.destination as! CategoryPickerViewController
-            controller.selectedCategoryName = categoryName
+    func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {
+        let point = gestureRecognizer.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        
+        if indexPath != nil && indexPath!.section == 0 && indexPath!.row == 0 {
+            return
         }
+        
+        descriptionTextView.resignFirstResponder()
     }
 
 }
