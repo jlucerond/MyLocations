@@ -38,11 +38,17 @@ class LocationDetailsViewController: UITableViewController {
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
     let hudView = HudView.hud(inView: navigationController!.view,
                               animated: true)
         hudView.text = "Tagged"
+        
+        afterDelay(0.6) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
+    
     @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue){
         let controller = segue.source as! CategoryPickerViewController
         categoryName = controller.selectedCategoryName
