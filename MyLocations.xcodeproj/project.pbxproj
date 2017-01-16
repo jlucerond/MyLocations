@@ -13,6 +13,10 @@
 		D83687151E26CE8500046D12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D83687131E26CE8500046D12 /* Main.storyboard */; };
 		D83687171E26CE8500046D12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D83687161E26CE8500046D12 /* Assets.xcassets */; };
 		D836871A1E26CE8500046D12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D83687181E26CE8500046D12 /* LaunchScreen.storyboard */; };
+		D837D2CA1E2ABE81009EA76C /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D2C91E2ABE81009EA76C /* HudView.swift */; };
+		D837D2CC1E2D3CB9009EA76C /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D837D2CB1E2D3CB9009EA76C /* Functions.swift */; };
+		D86E1E841E2879E000792C50 /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86E1E831E2879E000792C50 /* LocationDetailsViewController.swift */; };
+		D88075C91E29C0F000C978B5 /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88075C81E29C0F000C978B5 /* CategoryPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		D83687161E26CE8500046D12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D83687191E26CE8500046D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D836871B1E26CE8500046D12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D837D2C91E2ABE81009EA76C /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
+		D837D2CB1E2D3CB9009EA76C /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		D86E1E831E2879E000792C50 /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
+		D88075C81E29C0F000C978B5 /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				D836870D1E26CE8300046D12 /* AppDelegate.swift */,
-				D836870F1E26CE8300046D12 /* CurrentLocationViewController.swift */,
+				D837D2CD1E2D3CCB009EA76C /* FirstViewController */,
 				D83687111E26CE8400046D12 /* SecondViewController.swift */,
 				D83687131E26CE8500046D12 /* Main.storyboard */,
 				D83687161E26CE8500046D12 /* Assets.xcassets */,
@@ -65,6 +73,18 @@
 				D836871B1E26CE8500046D12 /* Info.plist */,
 			);
 			path = MyLocations;
+			sourceTree = "<group>";
+		};
+		D837D2CD1E2D3CCB009EA76C /* FirstViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D836870F1E26CE8300046D12 /* CurrentLocationViewController.swift */,
+				D86E1E831E2879E000792C50 /* LocationDetailsViewController.swift */,
+				D88075C81E29C0F000C978B5 /* CategoryPickerViewController.swift */,
+				D837D2C91E2ABE81009EA76C /* HudView.swift */,
+				D837D2CB1E2D3CB9009EA76C /* Functions.swift */,
+			);
+			name = FirstViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,8 +160,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D86E1E841E2879E000792C50 /* LocationDetailsViewController.swift in Sources */,
 				D83687121E26CE8400046D12 /* SecondViewController.swift in Sources */,
+				D837D2CA1E2ABE81009EA76C /* HudView.swift in Sources */,
+				D837D2CC1E2D3CB9009EA76C /* Functions.swift in Sources */,
 				D836870E1E26CE8300046D12 /* AppDelegate.swift in Sources */,
+				D88075C91E29C0F000C978B5 /* CategoryPickerViewController.swift in Sources */,
 				D83687101E26CE8300046D12 /* CurrentLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +328,7 @@
 				D83687201E26CE8500046D12 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
