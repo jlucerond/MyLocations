@@ -77,7 +77,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Tag Location"/>
                                 <connections>
-                                    <segue destination="HcL-ac-GBO" kind="presentation" identifier="PickCategory" id="zH4-kX-uMD"/>
+                                    <segue destination="HcL-ac-GBO" kind="presentation" identifier="TagLocation" id="zH4-kX-uMD"/>
                                 </connections>
                             </button>
                         </subviews>
