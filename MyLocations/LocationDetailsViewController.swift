@@ -31,11 +31,24 @@ class LocationDetailsViewController: UITableViewController {
     @IBOutlet weak var dateLabel: UILabel!
 
     //MARK: - Variables
+    var managedObjectContext: NSManagedObjectContext!
+    var descriptionText = ""
+    var categoryName = "No Category"
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
-    var categoryName = "No Category"
-    var managedObjectContext: NSManagedObjectContext!
     var date = Date()
+    
+    var locationToEdit: Location? {
+        didSet {
+            if let location = locationToEdit {
+                descriptionText = location.locationDescription
+                categoryName = location.category
+                coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+                placemark = location.placemark
+                date = location.date
+            }
+        }
+    }
     
     // MARK: - IBActions
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -45,9 +58,15 @@ class LocationDetailsViewController: UITableViewController {
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         let hudView = HudView.hud(inView: navigationController!.view,
                                   animated: true)
-        hudView.text = "Tagged"
         
-        let location = Location(context: managedObjectContext)
+        let location: Location
+        if let temp = locationToEdit {
+            hudView.text = "Updated"
+            location = temp
+        } else {
+            hudView.text = "Tagged"
+            location = Location(context: managedObjectContext)
+        }
         
         location.locationDescription = descriptionTextView.text
         location.category = categoryName
@@ -77,7 +96,10 @@ class LocationDetailsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        descriptionTextView.text = ""
+        if let location = locationToEdit {
+            title = "Edit Location"
+        }
+        descriptionTextView.text = descriptionText
         categoryLabel.text = categoryName
         
         latitudeLabel.text = String(format: "%.8f", coordinate.latitude)
@@ -182,3 +204,4 @@ class LocationDetailsViewController: UITableViewController {
     }
 
 }
+
