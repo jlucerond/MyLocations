@@ -29,6 +29,9 @@ class LocationDetailsViewController: UITableViewController {
     @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var addPhotoLabel: UILabel!
 
     //MARK: - Variables
     var managedObjectContext: NSManagedObjectContext!
@@ -37,6 +40,8 @@ class LocationDetailsViewController: UITableViewController {
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var placemark: CLPlacemark?
     var date = Date()
+    var observer: Any!
+    var image: UIImage?
     
     var locationToEdit: Location? {
         didSet {
@@ -95,6 +100,7 @@ class LocationDetailsViewController: UITableViewController {
     // MARK: - View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        listenForBackgroundNotification()
         
         if let location = locationToEdit {
             title = "Edit Location"
@@ -119,19 +125,28 @@ class LocationDetailsViewController: UITableViewController {
         tableView.addGestureRecognizer(gestureRecognizer)
     }
     
+    deinit {
+        print("*** deinit \(self)")
+        NotificationCenter.default.removeObserver(observer)
+    }
+    
     // MARK: - Table View Delegate Methods
     override func tableView(_ tableView: UITableView,
                             heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == 0 {
+        switch (indexPath.section, indexPath.row) {
+        case (0,0):
             return 88
-        } else if indexPath.section == 2 && indexPath.row == 2 {
-            addressLabel.frame.size = CGSize(width: view.bounds.size.width - 115,
-                                             height: 10000)
+        
+        case (1, _):
+            return imageView.isHidden ? 44 : (imageView.frame.height + 20)
+            
+        case (2,2):
+            addressLabel.frame.size = CGSize(width: view.bounds.size.width - 115, height: 10000)
             addressLabel.sizeToFit()
             addressLabel.frame.origin.x = view.bounds.size.width - addressLabel.frame.size.width - 15
-            
             return addressLabel.frame.size.height + 20
-        } else {
+            
+        default:
             return 44
         }
     }
@@ -205,7 +220,43 @@ class LocationDetailsViewController: UITableViewController {
         
         descriptionTextView.resignFirstResponder()
     }
-
+    
+    func show(image: UIImage) {
+        let idealImageSize = view.frame.width - 50
+        
+        var height: CGFloat = 0
+        var width: CGFloat = 0
+        if image.size.height > image.size.width {
+            height = idealImageSize
+            width = idealImageSize
+        } else {
+            width = idealImageSize
+            let aspectRatio = image.size.width / image.size.height
+            height = idealImageSize / aspectRatio
+        }
+        
+        imageView.image = image
+        imageView.isHidden = false
+        imageView.frame = CGRect(x: 10, y: 10, width: width, height: height)
+        
+        addPhotoLabel.isHidden = true
+    }
+    
+    func listenForBackgroundNotification() {
+        observer = NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationDidEnterBackground,
+                                                          object: nil,
+                                                          queue: OperationQueue.main) {
+                                                            [weak self] _ in
+                                                            if let strongSelf = self {
+                                                                if strongSelf.presentedViewController != nil {
+                                                                    strongSelf.dismiss(animated: false, completion: nil)
+                                                                }
+                                                                strongSelf.descriptionTextView.resignFirstResponder()
+                                                            }
+                                                            
+        }
+    }
+    
 }
 
 // MARK: - Photo Picking Extension
@@ -213,6 +264,13 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
     // MARK: - UIImagePickerController Protocol Methods
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String : Any]) {
+        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        
+        if let theImage = image {
+            show(image: theImage)
+        }
+        
+        tableView.reloadData()
         dismiss(animated: true, completion: nil)
     }
     

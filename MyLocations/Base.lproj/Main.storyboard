@@ -110,7 +110,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hEN-fa-36S" id="dwW-K3-9yC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFV-3Z-ss4">
@@ -304,6 +304,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XEh-90-FmD">
+                                                    <rect key="frame" x="188" y="10" width="146" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -460,17 +464,19 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addPhotoLabel" destination="6f7-8i-sTl" id="gK1-TX-uYp"/>
                         <outlet property="addressLabel" destination="25F-Bd-Oio" id="Ccu-oE-pVr"/>
                         <outlet property="categoryLabel" destination="pz1-Tw-8nC" id="lgX-Yf-oCC"/>
                         <outlet property="dateLabel" destination="w9m-QO-L9m" id="cIo-PL-7FZ"/>
                         <outlet property="descriptionTextView" destination="UJj-in-2Ri" id="bRg-iw-2I6"/>
+                        <outlet property="imageView" destination="XEh-90-FmD" id="fei-eZ-cqe"/>
                         <outlet property="latitudeLabel" destination="a5c-My-n1x" id="cPV-r9-AKJ"/>
                         <outlet property="longitudeLabel" destination="iXA-fb-jGd" id="11w-vh-hCM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nMq-tq-jAE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3282" y="428"/>
+            <point key="canvasLocation" x="3280.8000000000002" y="427.73613193403304"/>
         </scene>
         <!--Category Picker View Controller-->
         <scene sceneID="pB6-95-bXb">
