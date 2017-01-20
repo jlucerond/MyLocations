@@ -40,8 +40,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app lets you keep track of interesting places. It needs access to the GPS coordinates for your location.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app uses your camera so you can select photos for your locations.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Add photos to your locations.</string>
+	<string>This app uses your photo library so you can select photos for your locations.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
