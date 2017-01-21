@@ -43,6 +43,11 @@ class LocationsViewController: UITableViewController {
         navigationItem.rightBarButtonItem = editButtonItem
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("test")
+    }
+    
     deinit {
         fetchedResultsController.delegate = nil
     }
