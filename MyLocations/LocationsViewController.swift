@@ -43,6 +43,11 @@ class LocationsViewController: UITableViewController {
         navigationItem.rightBarButtonItem = editButtonItem
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print("test")
+    }
+    
     deinit {
         fetchedResultsController.delegate = nil
     }
@@ -80,6 +85,7 @@ class LocationsViewController: UITableViewController {
                             commit editingStyle: UITableViewCellEditingStyle,
                             forRowAt indexPath: IndexPath) {
         let location = fetchedResultsController.object(at: indexPath)
+        location.removePhotoFile()
         managedObjectContext.delete(location)
         
         do {
