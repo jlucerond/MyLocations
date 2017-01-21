@@ -56,6 +56,12 @@ class LocationDetailsViewController: UITableViewController {
     }
     
     // MARK: - IBActions
+    @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue){
+        let controller = segue.source as! CategoryPickerViewController
+        categoryName = controller.selectedCategoryName
+        categoryLabel.text = categoryName
+    }
+    
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
@@ -71,6 +77,7 @@ class LocationDetailsViewController: UITableViewController {
         } else {
             hudView.text = "Tagged"
             location = Location(context: managedObjectContext)
+            location.photoID = nil
         }
         
         location.locationDescription = descriptionTextView.text
@@ -79,6 +86,21 @@ class LocationDetailsViewController: UITableViewController {
         location.longitude = coordinate.longitude
         location.date = date
         location.placemark = placemark
+        
+        if let image = image {
+            if !location.hasPhoto {
+                location.photoID = Location.nextPhotoID() as NSNumber
+            }
+            
+            if let data = UIImageJPEGRepresentation(image, 0.5) {
+                do {
+                    try data.write(to: location.photoURL,
+                                   options: .atomic)
+                } catch {
+                    print("Error writing file: \(error)")
+                }
+            }
+        }
         
         do {
             try managedObjectContext.save()
@@ -90,13 +112,7 @@ class LocationDetailsViewController: UITableViewController {
             fatalCoreDataError(error)
         }
     }
-    
-    @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue){
-        let controller = segue.source as! CategoryPickerViewController
-        categoryName = controller.selectedCategoryName
-        categoryLabel.text = categoryName
-    }
-    
+
     // MARK: - View Controller Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,6 +120,11 @@ class LocationDetailsViewController: UITableViewController {
         
         if let location = locationToEdit {
             title = "Edit Location"
+            if location.hasPhoto {
+                if let theImage = location.photoImage{
+                    show(image: theImage)
+                }
+            }
         }
         descriptionTextView.text = descriptionText
         categoryLabel.text = categoryName

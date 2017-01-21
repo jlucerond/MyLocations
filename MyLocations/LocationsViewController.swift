@@ -80,6 +80,7 @@ class LocationsViewController: UITableViewController {
                             commit editingStyle: UITableViewCellEditingStyle,
                             forRowAt indexPath: IndexPath) {
         let location = fetchedResultsController.object(at: indexPath)
+        location.removePhotoFile()
         managedObjectContext.delete(location)
         
         do {
