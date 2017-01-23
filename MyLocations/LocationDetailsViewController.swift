@@ -144,6 +144,19 @@ class LocationDetailsViewController: UITableViewController {
                                                        action: #selector(hideKeyboard))
         gestureRecognizer.cancelsTouchesInView = false
         tableView.addGestureRecognizer(gestureRecognizer)
+        
+        tableView.backgroundColor = UIColor.black
+        tableView.separatorColor = UIColor(white: 1.0, alpha: 0.2)
+        tableView.indicatorStyle = .white
+        
+        descriptionTextView.textColor = UIColor.white
+        descriptionTextView.backgroundColor = UIColor.black
+        
+        addPhotoLabel.textColor = UIColor.white
+        addPhotoLabel.highlightedTextColor = addPhotoLabel.textColor
+        
+        addressLabel.textColor = UIColor(white: 1.0, alpha: 0.4)
+        addressLabel.highlightedTextColor = addressLabel.textColor
     }
     
     deinit {
@@ -191,6 +204,32 @@ class LocationDetailsViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView,
+                            willDisplay cell: UITableViewCell,
+                            forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.black
+        
+        if let textLabel = cell.textLabel {
+            textLabel.textColor = UIColor.white
+            textLabel.highlightedTextColor = textLabel.textColor
+        }
+        
+        if let detailLabel = cell.detailTextLabel {
+            detailLabel.textColor = UIColor(white: 1.0, alpha: 0.4)
+            detailLabel.highlightedTextColor = detailLabel.textColor
+        }
+        
+        let selectionView = UIView(frame: CGRect.zero)
+        selectionView.backgroundColor = UIColor(white: 1.0, alpha: 0.2)
+        cell.selectedBackgroundView = selectionView
+        
+        if indexPath.row == 2 {
+            let addressLabel = cell.viewWithTag(100) as! UILabel
+            addressLabel.textColor = UIColor.white
+            addressLabel.highlightedTextColor = addressLabel.textColor
+        }
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PickCategory" {
@@ -202,27 +241,12 @@ class LocationDetailsViewController: UITableViewController {
     // MARK: - Helper Methods
     func string(from placemark: CLPlacemark) -> String {
         var text = ""
-        
-        if let s = placemark.subThoroughfare {
-            text += s + " "
-        }
-        
-        if let s = placemark.thoroughfare {
-            text += s + ", "
-        }
-        
-        if let s = placemark.locality {
-            text += s + ", "
-        }
-        if let s = placemark.administrativeArea {
-            text += s + " "
-        }
-        if let s = placemark.postalCode {
-            text += s + ", "
-        }
-        if let s = placemark.country {
-            text += s
-        }
+        text.add(text: placemark.subThoroughfare)
+        text.add(text: placemark.thoroughfare, separatedBy: " ")
+        text.add(text: placemark.locality, separatedBy: ", ")
+        text.add(text: placemark.administrativeArea, separatedBy: ", ")
+        text.add(text: placemark.postalCode, separatedBy:  " ")
+        text.add(text: placemark.country, separatedBy: ", ")
         
         return text
     }
@@ -333,18 +357,20 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
     }
     
     func takePhotoWithCamera() {
-        let imagePicker = UIImagePickerController()
+        let imagePicker = MyImagePickerController()
         imagePicker.sourceType = .camera
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
+        imagePicker.view.tintColor = view.tintColor
         present(imagePicker, animated: true, completion: nil)
     }
     
     func choosePhotoFromLibrary() {
-        let imagePicker = UIImagePickerController()
+        let imagePicker = MyImagePickerController()
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
+        imagePicker.view.tintColor = view.tintColor
         present(imagePicker, animated: true, completion: nil)
     }
     

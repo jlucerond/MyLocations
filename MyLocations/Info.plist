@@ -28,14 +28,14 @@
 	<string>This app lets you keep track of interesting places. It needs access to the GPS coordinates for your location.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app uses your photo library so you can select photos for your locations.</string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
